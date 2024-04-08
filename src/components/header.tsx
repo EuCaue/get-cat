@@ -8,7 +8,7 @@ export default function Header() {
           <li className="text-center flex-1">
             <div className="text-lg font-semibold flex-1">Get Cat</div>
           </li>
-          <li className="sticky flex items-center justify-center right-0">
+          <li className="fixed flex items-center justify-center right-0 mt-4 mr-1">
             <ModeToggle />
           </li>
         </ul>

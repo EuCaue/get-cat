@@ -1,7 +1,5 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
-import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -9,46 +7,30 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import { useEffect, useState } from "react";
-import { Cat } from "lucide-react";
-
-type ImageCardProps = {
-  imageUrl: string;
-  altText: string;
-};
-
-function ImageCard({ imageUrl, altText }: ImageCardProps) {
-  return (
-    <AspectRatio ratio={16 / 9}>
-      <Image
-        src={imageUrl}
-        width={1920}
-        height={1080}
-        alt={altText}
-        className="rounded-sm object-cover w-full h-full"
-      />
-    </AspectRatio>
-  );
-}
+import { Cat, Loader2 } from "lucide-react";
+import { ImageCard } from "@/components/image-card";
+import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "./ui/skeleton";
 
 export default function ImageContainer() {
-  const [randomCatImageUrl, setRandomCatImageUrl] = useState<string>("");
-
-  useEffect(() => {
-    callAPI();
-  }, []);
-
-  const callAPI = async () => {
-    try {
+  const { isLoading, data, refetch } = useQuery({
+    queryKey: ["cat"],
+    queryFn: async () => {
       const res = await fetch("http://localhost:3000/api/random-cat-pix", {
         method: "GET",
       });
       const { imageUrl } = await res.json();
-      setRandomCatImageUrl(imageUrl);
+      return imageUrl;
+    },
+  });
+
+  function getRandomCatImage() {
+    try {
+      refetch();
     } catch (err) {
       console.log(err);
     }
-  };
+  }
 
   return (
     <>
@@ -58,18 +40,32 @@ export default function ImageContainer() {
         </CardHeader>
 
         <CardContent>
-          <ImageCard imageUrl={randomCatImageUrl} altText="Random Cat" />
+          {isLoading ? (
+            <div className="flex flex-col space-y-3">
+              <Skeleton className="w-full h-[150px] md:h-[450px] rounded-xl" />
+            </div>
+          ) : (
+            <ImageCard imageUrl={data} altText="Random Cat" />
+          )}
         </CardContent>
 
         <CardFooter>
           <Button
+            disabled={isLoading}
             className="m-auto"
             type="submit"
-            size="icon"
-            onClick={callAPI}
+            size={isLoading ? "lg" : "icon"}
+            onClick={getRandomCatImage}
             title="Get a random cat"
           >
-            <Cat />
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />A Cat is
+                walking!!
+              </>
+            ) : (
+              <Cat />
+            )}
           </Button>
         </CardFooter>
       </Card>
