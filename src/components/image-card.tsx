@@ -3,15 +3,15 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
 
 type ImageCardProps = {
-  imageUrl: string;
+  imageURL: string;
   altText: string;
 };
 
-export function ImageCard({ imageUrl, altText }: ImageCardProps) {
+export function ImageCard({ imageURL, altText }: ImageCardProps) {
   return (
     <AspectRatio ratio={16 / 9}>
       <Image
-        src={imageUrl}
+        src={imageURL}
         width={1920}
         height={1080}
         alt={altText}

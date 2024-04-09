@@ -22,12 +22,13 @@ type APIResponse = {
   }[];
 };
 
-export async function GET(_: NextApiResponse, res: NextApiResponse) {
+export async function GET() {
   try {
     const apiRes = await fetch(
       `https://pixabay.com/api/?key=${process.env.PIX_API_KEY}&q=cat&image_type=photo&pretty=true&orientation=horizontal&min_width=1280&min_height=720`,
       {
         method: "GET",
+        cache: "no-cache",
       },
     );
     const data: APIResponse = await apiRes.json();
@@ -36,10 +37,8 @@ export async function GET(_: NextApiResponse, res: NextApiResponse) {
     const randomImagePos: number = Math.floor(
       Math.random() * (max - min + 1) + min,
     );
-    const imageUrl: string = data.hits[randomImagePos].largeImageURL;
-
-    console.log(imageUrl);
-    return NextResponse.json({ imageUrl }, { status: 200 });
+    const imageURL: string = data.hits[randomImagePos].largeImageURL;
+    return NextResponse.json({ imageURL }, { status: 200 });
   } catch (err) {
     return NextResponse.json({}, { status: 400, statusText: String(err) });
   }

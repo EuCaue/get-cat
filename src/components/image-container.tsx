@@ -19,8 +19,8 @@ export default function ImageContainer() {
       const res = await fetch("http://localhost:3000/api/random-cat-pix", {
         method: "GET",
       });
-      const { imageUrl } = await res.json();
-      return imageUrl;
+      const { imageURL } = await res.json();
+      return imageURL;
     },
   });
 
@@ -45,7 +45,7 @@ export default function ImageContainer() {
               <Skeleton className="w-full h-[150px] md:h-[450px] rounded-xl" />
             </div>
           ) : (
-            <ImageCard imageUrl={data} altText="Random Cat" />
+            <ImageCard imageURL={data} altText="Random Cat" />
           )}
         </CardContent>
 
