@@ -16,7 +16,7 @@ export default function ImageContainer() {
   const { isLoading, data, refetch } = useQuery({
     queryKey: ["cat"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3000/api/random-cat-pix", {
+      const res = await fetch("api/random-cat-pix", {
         method: "GET",
       });
       const { imageURL } = await res.json();
