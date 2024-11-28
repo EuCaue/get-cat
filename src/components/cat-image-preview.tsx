@@ -12,7 +12,7 @@ import { ImageCard } from "@/components/image-card";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "./ui/skeleton";
 
-export default function ImageContainer() {
+export default function CatImagePreview() {
   const { isLoading, data, refetch } = useQuery({
     queryKey: ["cat"],
     queryFn: async () => {
@@ -36,7 +36,7 @@ export default function ImageContainer() {
     <>
       <Card className="w-[95dvw] md:w-6/12">
         <CardHeader>
-          <CardTitle className="text-center">Random Cat</CardTitle>
+          <CardTitle className="text-center">{isLoading ? "Your cat is comming!" : "Your cat is here! =D"}</CardTitle>
         </CardHeader>
 
         <CardContent>
