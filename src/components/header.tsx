@@ -10,12 +10,13 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
+import Link from "next/link";
 
 function Dropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="rounded-sm" >
+        <Button variant="outline" className="rounded-sm">
           <MenuIcon />
         </Button>
       </DropdownMenuTrigger>
@@ -27,12 +28,12 @@ function Dropdown() {
         <DropdownMenuGroup>
           <DropdownMenuItem>
             <Button variant="link" asChild>
-              <a href="/">Home</a>
+              <Link href="/">Home</Link>
             </Button>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <Button variant="link" asChild>
-              <a href="/cat">Cat</a>
+              <Link href="/cat">Cat</Link>
             </Button>
           </DropdownMenuItem>
         </DropdownMenuGroup>
@@ -47,15 +48,15 @@ function Dropdown() {
 
 export default function Header() {
   return (
-    <header className="sticky mt-4 w-screen flex items-center justify-center">
+    <header className="sticky top-0 z-50 mt-4 w-screen flex items-center justify-center">
       <nav>
         <ul className="flex items-center justify-between">
           <li className="flex-1 text-center">
-            <a href="/" className="flex-1 text-lg font-semibold">
+            <Link href="/" className="flex-1 text-lg font-semibold">
               Get Cat
-            </a>
+            </Link>
           </li>
-          <li className="fixed left-0 pl-2 flex items-center justify-center">
+          <li className="absolute left-0 pl-2 flex items-center justify-center">
             <Dropdown />
           </li>
         </ul>
