@@ -13,11 +13,13 @@ import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "./ui/skeleton";
 
 export default function CatImagePreview() {
-  const { isLoading, data, refetch } = useQuery({
+  const { isFetching, data, refetch } = useQuery({
     queryKey: ["cat"],
+    refetchOnWindowFocus: false,
     queryFn: async () => {
       const res = await fetch("api/random-cat-pix", {
         method: "GET",
+        cache: "no-cache",
       });
       const { imageURL } = await res.json();
       return imageURL;
@@ -36,11 +38,13 @@ export default function CatImagePreview() {
     <>
       <Card className="w-[95dvw] md:w-6/12">
         <CardHeader>
-          <CardTitle className="text-center">{isLoading ? "Your cat is comming!" : "Your cat is here! =D"}</CardTitle>
+          <CardTitle className="text-center">
+            {isFetching ? "Your cat is comming!" : "Your cat is here! =D"}
+          </CardTitle>
         </CardHeader>
 
         <CardContent>
-          {isLoading ? (
+          {isFetching ? (
             <div className="flex flex-col space-y-3">
               <Skeleton className="w-full h-[150px] md:h-[450px] rounded-xl" />
             </div>
@@ -51,14 +55,14 @@ export default function CatImagePreview() {
 
         <CardFooter>
           <Button
-            disabled={isLoading}
+            disabled={isFetching}
             className="m-auto"
             type="submit"
-            size={isLoading ? "lg" : "icon"}
+            size={isFetching ? "lg" : "icon"}
             onClick={getRandomCatImage}
             title="Get a random cat"
           >
-            {isLoading ? (
+            {isFetching ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />A Cat is
                 walking!!
