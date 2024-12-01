@@ -36,6 +36,11 @@ function Dropdown() {
               <Link href="/cat">Cat</Link>
             </Button>
           </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Button variant="link" asChild>
+              <Link href="/meow-fact">Meow Fact</Link>
+            </Button>
+          </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>

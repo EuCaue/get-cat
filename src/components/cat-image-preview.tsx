@@ -17,7 +17,7 @@ export default function CatImagePreview() {
     queryKey: ["cat"],
     refetchOnWindowFocus: false,
     queryFn: async () => {
-      const res = await fetch("api/random-cat-pix", {
+      const res = await fetch("api/random-cat", {
         method: "GET",
         cache: "no-cache",
       });
