@@ -35,6 +35,7 @@ export default function CatImagePreview() {
   }
 
   return (
+    //  TODO: handle when isError 
     <>
       <Card className="w-[95dvw] md:w-6/12">
         <CardHeader>

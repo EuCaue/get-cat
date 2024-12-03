@@ -21,7 +21,7 @@ export default function Page() {
     },
     canvasOptions: { shouldAnimateClear: true },
   });
-  const { isFetching, data, refetch } = useQuery({
+  const { isError, isFetching, data, refetch } = useQuery({
     queryKey: ["meow-fact"],
     refetchOnWindowFocus: false,
     queryFn: async () => {
@@ -33,16 +33,20 @@ export default function Page() {
 
   function getRandowMeowFact() {
     try {
-      refetch();
       resetCanvas();
+      refetch();
     } catch (err) {
+      resetCanvas()
       console.error(err);
     }
   }
 
+
   return (
     <main className="flex items-center justify-center h-screen w-screen flex-col ">
-      <Card className="w-[250px] h-[350px] flex items-center justify-center flex-col mb-4 relative z-20">
+      <Card
+        className="w-[250px] h-[350px] flex items-center justify-center flex-col mb-4 relative z-20"
+      >
         <CardHeader className="">
           <CardTitle>Your meow fact</CardTitle>
         </CardHeader>
@@ -53,6 +57,10 @@ export default function Page() {
         </CardContent>
         <canvas
           className="absolute top-0 start-0"
+          style={{
+            cursor: isFetching ? "not-allowed" : "auto",
+            pointerEvents: isFetching ? "none" : "auto",
+          }}
           ref={canvasRef}
           id="scratch"
           width="250"
@@ -69,8 +77,8 @@ export default function Page() {
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             <span className="text-">
-            You&apos;re about to know more about cats!!
-          </span>
+              You&apos;re about to know more about cats!!
+            </span>
           </>
         ) : (
           <>
@@ -78,6 +86,7 @@ export default function Page() {
           </>
         )}
       </Button>
+      <small style={{display: isError ? "block" : "none"}}>There&apos;s an error, please try again! =]</small>
     </main>
   );
 }
