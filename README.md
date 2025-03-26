@@ -11,7 +11,7 @@ doesn't love cats? 🐾
 
 ## Live Preview
 
-Check out the live version of [Get Cat](get-cat.vercel.app)
+Check out the live version of [Get Cat](https://get-cat.vercel.app/)
 
 ## How to Run Locally
 
